@@ -20,8 +20,8 @@ import {
   ProtectedRoute
 } from '@components';
 import { Route, Routes } from 'react-router-dom';
-import { AppDispatch, RootState } from '../../services/store';
 import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../services/store';
 import { getIngredientsAsync } from '../../slices/ingredients/ingredientsSlice';
 
 const App = () => {
