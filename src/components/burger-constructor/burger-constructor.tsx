@@ -20,7 +20,7 @@ export const BurgerConstructor: FC = () => {
   };
   const closeOrderModal = () => {};
 
-  /*const price = useMemo(
+  const price = useMemo(
     () =>
       (constructorItems.bun ? constructorItems.bun.price * 2 : 0) +
       constructorItems.ingredients.reduce(
@@ -28,19 +28,7 @@ export const BurgerConstructor: FC = () => {
         0
       ),
     [constructorItems]
-  );*/
-
-  const price = useMemo(
-    () =>
-      (constructorItems.bun ? constructorItems.bun.price * 2 : 0) +
-      constructorItems.ingredients.reduce(
-        (s: number, v: TIngredient) => s + v.price,
-        0
-      ),
-    [constructorItems]
   );
-
-  //return null;
 
   return (
     <BurgerConstructorUI
