@@ -1,43 +1,41 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getFeedsApi } from '@api';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TOrder } from '@utils-types';
 
 interface feedState {
-  value: number;
+  orders: TOrder[];
+  total: number;
+  totalToday: number;
 }
 
 const initialState: feedState = {
-  value: 0
+  orders: [],
+  total: 0,
+  totalToday: 0
 };
 
-const feedSlice = createSlice({
-  name: "counter",
+export const feedSlice = createSlice({
+  name: 'feed',
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
-    }
+    //
   },
   extraReducers: (builder) => {
-    builder.addCase(incrementAsync.pending, (state) => {
-      console.log("pending");
-    });
-    builder.addCase(incrementAsync.fulfilled, (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
-    });
+    builder.addCase(
+      getFeedAsync.fulfilled,
+      (state, action: PayloadAction<feedState>) => {
+        console.log('test');
+        state.orders = action.payload.orders;
+        state.total = action.payload.total;
+        state.totalToday = action.payload.totalToday;
+      }
+    );
   }
 });
 
-export const incrementAsync = createAsyncThunk(
-  "counter/incrementAsync",
-  async (amount: number) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    return amount;
-  }
-);
-export const {increment, decrement, incrementByAmount} = feedSlice.actions;
+export const getFeedAsync = createAsyncThunk('feed/getFeedAsync', async () => {
+  const response = await getFeedsApi();
+  return response;
+});
+
 export default feedSlice.reducer;

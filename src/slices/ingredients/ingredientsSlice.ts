@@ -4,6 +4,7 @@ import { TIngredient } from '@utils-types';
 
 interface ingredientsState {
   isIngredientsLoading: boolean;
+  ingredientsList: TIngredient[];
   buns: TIngredient[];
   mains: TIngredient[];
   sauces: TIngredient[];
@@ -11,6 +12,7 @@ interface ingredientsState {
 
 const initialState: ingredientsState = {
   isIngredientsLoading: false,
+  ingredientsList: [],
   buns: [],
   mains: [],
   sauces: []
@@ -33,6 +35,7 @@ export const ingredientsSlice = createSlice({
       getIngredientsAsync.fulfilled,
       (state, action: PayloadAction<TIngredient[]>) => {
         state.isIngredientsLoading = false;
+        state.ingredientsList = action.payload;
         state.buns = action.payload.filter(
           (ingredient: TIngredient) => ingredient.type === 'bun'
         );
