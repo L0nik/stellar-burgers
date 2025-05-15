@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TConstructorIngredient, TIngredient } from '@utils-types';
+import { TConstructorIngredient } from '@utils-types';
 
 interface burgerConstructorState {
   bun: TConstructorIngredient;
@@ -19,7 +19,8 @@ const initialState: burgerConstructorState = {
     image: '',
     image_large: '',
     image_mobile: '',
-    id: ''
+    id: '',
+    guid: ''
   },
   ingredients: []
 };
@@ -32,11 +33,25 @@ export const burgerConstructorSlice = createSlice({
       if (action.payload.type === 'bun') {
         state.bun = action.payload;
       } else {
-        state.ingredients.push(action.payload);
+        const newIngredient = {
+          ...action.payload,
+          guid: window.crypto.randomUUID()
+        };
+        state.ingredients.push(newIngredient);
       }
+    },
+    removeIngredient: (
+      state,
+      action: PayloadAction<TConstructorIngredient>
+    ) => {
+      state.ingredients = state.ingredients.filter(
+        (ingredient: TConstructorIngredient) =>
+          action.payload.guid !== ingredient.guid
+      );
     }
   }
 });
 
-export const { addIngredient } = burgerConstructorSlice.actions;
+export const { addIngredient, removeIngredient } =
+  burgerConstructorSlice.actions;
 export default burgerConstructorSlice.reducer;
