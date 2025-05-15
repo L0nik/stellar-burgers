@@ -48,10 +48,40 @@ export const burgerConstructorSlice = createSlice({
         (ingredient: TConstructorIngredient) =>
           action.payload.guid !== ingredient.guid
       );
+    },
+    moveIngredientUp: (
+      state,
+      action: PayloadAction<TConstructorIngredient>
+    ) => {
+      const ingredientToMoveUp = action.payload;
+      const index = state.ingredients.findIndex(
+        (ingredient: TConstructorIngredient) =>
+          ingredient.guid === ingredientToMoveUp.guid
+      );
+      const ingredientToMoveDown = state.ingredients[index - 1];
+      state.ingredients[index - 1] = ingredientToMoveUp;
+      state.ingredients[index] = ingredientToMoveDown;
+    },
+    moveIngredientDown: (
+      state,
+      action: PayloadAction<TConstructorIngredient>
+    ) => {
+      const ingredientToMoveDown = action.payload;
+      const index = state.ingredients.findIndex(
+        (ingredient: TConstructorIngredient) =>
+          ingredient.guid === ingredientToMoveDown.guid
+      );
+      const ingredientToMoveUp = state.ingredients[index + 1];
+      state.ingredients[index + 1] = ingredientToMoveDown;
+      state.ingredients[index] = ingredientToMoveUp;
     }
   }
 });
 
-export const { addIngredient, removeIngredient } =
-  burgerConstructorSlice.actions;
+export const {
+  addIngredient,
+  removeIngredient,
+  moveIngredientUp,
+  moveIngredientDown
+} = burgerConstructorSlice.actions;
 export default burgerConstructorSlice.reducer;
