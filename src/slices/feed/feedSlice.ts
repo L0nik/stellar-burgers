@@ -24,7 +24,6 @@ export const feedSlice = createSlice({
     builder.addCase(
       getFeedAsync.fulfilled,
       (state, action: PayloadAction<feedState>) => {
-        console.log('test');
         state.orders = action.payload.orders;
         state.total = action.payload.total;
         state.totalToday = action.payload.totalToday;
