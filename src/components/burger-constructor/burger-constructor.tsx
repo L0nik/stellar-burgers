@@ -11,9 +11,13 @@ export const BurgerConstructor: FC = () => {
     (state: RootState) => state.burgerConstructor
   );
 
-  const orderRequest = false;
+  const orderRequest = useSelector(
+    (state: RootState) => state.order.orderRequest
+  );
 
-  const orderModalData = null;
+  const orderModalData = useSelector(
+    (state: RootState) => state.order.orderData
+  );
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
