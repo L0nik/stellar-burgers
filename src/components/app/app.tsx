@@ -73,7 +73,12 @@ const App = () => {
         <Route
           path='/ingredients/:id'
           element={
-            <Modal title='Инфомация об ингридиенте' onClose={() => {}}>
+            <Modal
+              title='Инфомация об ингридиенте'
+              onClose={() => {
+                navigate(-1);
+              }}
+            >
               <IngredientDetails />
             </Modal>
           }
