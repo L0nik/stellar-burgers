@@ -6,22 +6,25 @@ import {
   TAuthResponse,
   TLoginData,
   TRegisterData,
-  updateUserApi
+  updateUserApi,
+  getOrdersApi
 } from '@api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TUser } from '@utils-types';
+import { TUser, TOrder } from '@utils-types';
 import { deleteCookie, setCookie } from '../../utils/cookie';
 
 interface userState {
   userData: TUser | null;
   isAuthChecked: boolean;
   loginError: string;
+  orders: TOrder[];
 }
 
 const initialState: userState = {
   userData: null,
   isAuthChecked: true,
-  loginError: ''
+  loginError: '',
+  orders: []
 };
 
 export const userSlice = createSlice({
@@ -79,6 +82,15 @@ export const userSlice = createSlice({
     builder.addCase(updateUserAsync.rejected, (state, action) => {
       console.log(action.error.message);
     });
+    builder.addCase(getOrdersAsync.rejected, (state: userState, action) => {
+      state.orders = [];
+    });
+    builder.addCase(
+      getOrdersAsync.fulfilled,
+      (state: userState, action: PayloadAction<TOrder[]>) => {
+        state.orders = action.payload;
+      }
+    );
   }
 });
 
@@ -115,6 +127,14 @@ export const updateUserAsync = createAsyncThunk(
   async (user: Partial<TRegisterData>) => {
     const response = await updateUserApi(user);
     return response.user;
+  }
+);
+
+export const getOrdersAsync = createAsyncThunk(
+  'order/getOrdersAsync',
+  async () => {
+    const response = await getOrdersApi();
+    return response;
   }
 );
 

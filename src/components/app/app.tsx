@@ -20,12 +20,14 @@ import {
   OnlyAuth,
   OnlyUnAuth
 } from '@components';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../services/store';
 import { getIngredientsAsync } from '../../slices/ingredients/ingredientsSlice';
+import { clearOrderInfo } from '../../slices/order/orderSlice';
 
 const App = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   dispatch(getIngredientsAsync());
 
@@ -57,7 +59,13 @@ const App = () => {
         <Route
           path='/feed/:number'
           element={
-            <Modal title='Инфомация о заказе' onClose={() => {}}>
+            <Modal
+              title='Инфомация о заказе'
+              onClose={() => {
+                dispatch(clearOrderInfo());
+                navigate(-1);
+              }}
+            >
               <OrderInfo />
             </Modal>
           }
@@ -73,7 +81,14 @@ const App = () => {
         <Route
           path='/profile/orders/:number'
           element={
-            <Modal title='Инфомация о заказе' onClose={() => {}}>
+            <Modal
+              title='Инфомация о заказе'
+              onClose={() => {
+                console.log('test');
+                dispatch(clearOrderInfo());
+                navigate(-1);
+              }}
+            >
               <OrderInfo />
             </Modal>
           }

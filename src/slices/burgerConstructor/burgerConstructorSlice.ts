@@ -2,26 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TConstructorIngredient } from '@utils-types';
 
 interface burgerConstructorState {
-  bun: TConstructorIngredient;
+  bun: TConstructorIngredient | null;
   ingredients: TConstructorIngredient[];
 }
 
 const initialState: burgerConstructorState = {
-  bun: {
-    _id: '',
-    name: '',
-    type: '',
-    proteins: 0,
-    fat: 0,
-    carbohydrates: 0,
-    calories: 0,
-    price: 0,
-    image: '',
-    image_large: '',
-    image_mobile: '',
-    id: '',
-    guid: ''
-  },
+  bun: null,
   ingredients: []
 };
 
@@ -29,7 +15,10 @@ export const burgerConstructorSlice = createSlice({
   name: 'burgerConstructor',
   initialState,
   reducers: {
-    addIngredient: (state, action: PayloadAction<TConstructorIngredient>) => {
+    addIngredient: (
+      state: burgerConstructorState,
+      action: PayloadAction<TConstructorIngredient>
+    ) => {
       if (action.payload.type === 'bun') {
         state.bun = action.payload;
       } else {
@@ -41,7 +30,7 @@ export const burgerConstructorSlice = createSlice({
       }
     },
     removeIngredient: (
-      state,
+      state: burgerConstructorState,
       action: PayloadAction<TConstructorIngredient>
     ) => {
       state.ingredients = state.ingredients.filter(
@@ -50,7 +39,7 @@ export const burgerConstructorSlice = createSlice({
       );
     },
     moveIngredientUp: (
-      state,
+      state: burgerConstructorState,
       action: PayloadAction<TConstructorIngredient>
     ) => {
       const ingredientToMoveUp = action.payload;
@@ -63,7 +52,7 @@ export const burgerConstructorSlice = createSlice({
       state.ingredients[index] = ingredientToMoveDown;
     },
     moveIngredientDown: (
-      state,
+      state: burgerConstructorState,
       action: PayloadAction<TConstructorIngredient>
     ) => {
       const ingredientToMoveDown = action.payload;
@@ -74,6 +63,10 @@ export const burgerConstructorSlice = createSlice({
       const ingredientToMoveUp = state.ingredients[index + 1];
       state.ingredients[index + 1] = ingredientToMoveDown;
       state.ingredients[index] = ingredientToMoveUp;
+    },
+    clearIngredients: (state: burgerConstructorState) => {
+      state.bun = null;
+      state.ingredients = [];
     }
   }
 });
@@ -82,6 +75,7 @@ export const {
   addIngredient,
   removeIngredient,
   moveIngredientUp,
-  moveIngredientDown
+  moveIngredientDown,
+  clearIngredients
 } = burgerConstructorSlice.actions;
 export default burgerConstructorSlice.reducer;
