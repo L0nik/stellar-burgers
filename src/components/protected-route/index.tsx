@@ -24,9 +24,9 @@ const Protected = ({
   // url == "/profile", onlyUnAuth = false, user != null
   // url == "/profile", onlyUnAuth = false, user == null
 
-  if (!isAuthChecked) {
+  /*if (!isAuthChecked) {
     return <p>Загрузка....</p>;
-  }
+  }*/
 
   if (!onlyUnAuth && !user) {
     // for authorized user, but user is unauthorized
