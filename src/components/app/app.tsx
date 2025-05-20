@@ -21,7 +21,7 @@ import {
   OnlyUnAuth
 } from '@components';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from '../../services/store';
+import { RootState, useDispatch, useSelector } from '../../services/store';
 import { getIngredientsAsync } from '../../slices/ingredients/ingredientsSlice';
 import { clearOrderInfo } from '../../slices/order/orderSlice';
 import { getUserAsync } from '../../slices/user/userSlice';
@@ -32,9 +32,12 @@ const App = () => {
   const backgroundLocation = location.state?.background;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isAuthChecked = useSelector(
+    (state: RootState) => state.user.isAuthChecked
+  );
   dispatch(getIngredientsAsync());
 
-  if (getCookie('accessToken') || localStorage.getItem('refreshToken')) {
+  if (isAuthChecked) {
     dispatch(getUserAsync());
   }
 

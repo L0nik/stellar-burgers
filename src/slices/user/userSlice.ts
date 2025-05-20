@@ -11,7 +11,7 @@ import {
 } from '@api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TUser, TOrder } from '@utils-types';
-import { deleteCookie, setCookie } from '../../utils/cookie';
+import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 
 interface userState {
   userData: TUser | null;
@@ -22,7 +22,10 @@ interface userState {
 
 const initialState: userState = {
   userData: null,
-  isAuthChecked: true,
+  isAuthChecked:
+    getCookie('accessToken') || localStorage.getItem('refreshToken')
+      ? true
+      : false,
   loginError: '',
   orders: []
 };
@@ -47,12 +50,14 @@ export const userSlice = createSlice({
       loginUserAsync.fulfilled,
       (state, action: PayloadAction<TAuthResponse>) => {
         state.userData = action.payload.user;
+        state.isAuthChecked = true;
         localStorage.setItem('refreshToken', action.payload.refreshToken);
         setCookie('accessToken', action.payload.accessToken);
       }
     );
     builder.addCase(loginUserAsync.rejected, (state, action) => {
       state.userData = null;
+      state.isAuthChecked = false;
       state.loginError = action.error.message || '';
     });
     builder.addCase(
@@ -70,6 +75,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(logoutUserAsync.fulfilled, (state) => {
       state.userData = null;
+      state.isAuthChecked = false;
       localStorage.removeItem('refreshToken');
       deleteCookie('accessToken');
     });
