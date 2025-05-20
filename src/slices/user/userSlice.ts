@@ -34,6 +34,9 @@ export const userSlice = createSlice({
     //
   },
   extraReducers: (builder) => {
+    builder.addCase(getUserAsync.rejected, (state, action) => {
+      state.userData = null;
+    });
     builder.addCase(
       getUserAsync.fulfilled,
       (state, action: PayloadAction<TUser>) => {

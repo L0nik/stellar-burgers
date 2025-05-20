@@ -24,6 +24,8 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from '../../services/store';
 import { getIngredientsAsync } from '../../slices/ingredients/ingredientsSlice';
 import { clearOrderInfo } from '../../slices/order/orderSlice';
+import { getUserAsync } from '../../slices/user/userSlice';
+import { getCookie } from '../../utils/cookie';
 
 const App = () => {
   const location = useLocation();
@@ -31,6 +33,10 @@ const App = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   dispatch(getIngredientsAsync());
+
+  if (getCookie('accessToken') || localStorage.getItem('refreshToken')) {
+    dispatch(getUserAsync());
+  }
 
   return (
     <div className={styles.app}>
