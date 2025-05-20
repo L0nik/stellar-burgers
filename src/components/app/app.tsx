@@ -20,12 +20,14 @@ import {
   OnlyAuth,
   OnlyUnAuth
 } from '@components';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from '../../services/store';
 import { getIngredientsAsync } from '../../slices/ingredients/ingredientsSlice';
 import { clearOrderInfo } from '../../slices/order/orderSlice';
 
 const App = () => {
+  const location = useLocation();
+  const backgroundLocation = location.state?.background;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   dispatch(getIngredientsAsync());
@@ -33,7 +35,7 @@ const App = () => {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes>
+      <Routes location={backgroundLocation || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
         <Route path='/login' element={<OnlyUnAuth component={<Login />} />} />
@@ -55,6 +57,8 @@ const App = () => {
           element={<OnlyAuth component={<ProfileOrders />} />}
         />
         <Route path='*' element={<NotFound404 />} />
+      </Routes>
+      <Routes>
         <Route
           path='/feed/:number'
           element={
