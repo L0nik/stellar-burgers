@@ -1,8 +1,7 @@
 import { FC, SyntheticEvent, useState } from 'react';
 import { LoginUI } from '@ui-pages';
-import { useDispatch, useSelector } from 'react-redux';
 import { loginUserAsync } from '../../slices/user/userSlice';
-import { AppDispatch, RootState } from '../../services/store';
+import { RootState, useDispatch, useSelector } from '../../services/store';
 
 export const Login: FC = () => {
   const [email, setEmail] = useState('');
@@ -10,7 +9,7 @@ export const Login: FC = () => {
 
   const errorText = useSelector((state: RootState) => state.user.loginError);
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();

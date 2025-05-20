@@ -21,14 +21,13 @@ import {
   OnlyUnAuth
 } from '@components';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../services/store';
+import { useDispatch } from '../../services/store';
 import { getIngredientsAsync } from '../../slices/ingredients/ingredientsSlice';
 import { clearOrderInfo } from '../../slices/order/orderSlice';
 
 const App = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   dispatch(getIngredientsAsync());
 
   return (

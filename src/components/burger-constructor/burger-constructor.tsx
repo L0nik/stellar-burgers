@@ -1,8 +1,7 @@
 import { FC, useMemo } from 'react';
 import { TConstructorIngredient, TIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../services/store';
+import { RootState, useDispatch, useSelector } from '../../services/store';
 import {
   clearOrderData,
   orderBurgerAsync
@@ -15,7 +14,7 @@ export const BurgerConstructor: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.user.userData);
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
 
   const constructorItems = useSelector(
     (state: RootState) => state.burgerConstructor

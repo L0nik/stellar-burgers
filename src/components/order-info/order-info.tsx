@@ -3,12 +3,16 @@ import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from 'src/services/store';
+import {
+  AppDispatch,
+  RootState,
+  useSelector,
+  useDispatch
+} from '../../services/store';
 import { getOrderByNumberAsync } from '../../slices/order/orderSlice';
 
 export const OrderInfo: FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const params = useParams();
   const orderNumber = Number.parseInt(params.number || '');
 
