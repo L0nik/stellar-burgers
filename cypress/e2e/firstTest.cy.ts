@@ -18,5 +18,9 @@ describe('проверяем доступность приложения', funct
         //добавление начинки
         cy.get('h3').contains('Начинки').next('ul').children().first().contains('Добавить').click();
         cy.contains('Выберите булки').should('not.exist');
+    });
+
+    it('Тестирование модального окна', () => {
+        //todo
     })
 }); 
