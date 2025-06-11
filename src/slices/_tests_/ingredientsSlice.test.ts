@@ -1,7 +1,7 @@
-import {expect, test, describe, jest} from '@jest/globals';
+import {expect, test, describe} from '@jest/globals';
 import {configureStore } from '@reduxjs/toolkit';
 import ingredientsSliceReducer, { getIngredientsAsync } from '../ingredients/ingredientsSlice';
-import {ingredient1, ingredient2, bun } from './mockData';
+import {ingredientMain, ingredientSauce, ingredientBun } from './mockData';
 
 describe('Тесты редьюсера слайса ingredients', () => {
 
@@ -21,9 +21,14 @@ describe('Тесты редьюсера слайса ingredients', () => {
   });
 
   test('При успешном получении ингридиентов данные записываются в стор, а значение флага isIngredientsLoading меняется на false', () => {
-    const mockIngredients = [ingredient1, ingredient2, bun];
-    store.dispatch(getIngredientsAsync.fulfilled(mockIngredients, 'test'));
-    expect(store.getState().isIngredientsLoading).toBe(false);
+    const ingredientsList = [ingredientMain, ingredientSauce, ingredientBun];
+    store.dispatch(getIngredientsAsync.fulfilled(ingredientsList, 'test'));
+    const state = store.getState();
+    expect(state.isIngredientsLoading).toBe(false);
+    expect(state.ingredientsList).toEqual(ingredientsList);
+    expect(state.buns).toEqual([ingredientBun]);
+    expect(state.mains).toEqual([ingredientMain]);
+    expect(state.sauces).toEqual([ingredientSauce]);
   });
 
   test('Если при получении ингридиентов произошла ошибка, она записывается в стор, значение флага isIngredientsLoading меняется на false', () => {

@@ -3,7 +3,7 @@ export const initialState = {
   ingredients: []
 };
 
-export const ingredient1 = {
+export const ingredientMain = {
   "_id": "643d69a5c3f7b9001cfa0948",
   "name": "Кристаллы марсианских альфа-сахаридов",
   "type": "main",
@@ -20,7 +20,7 @@ export const ingredient1 = {
   "guid": "test-ingredient-main-1",
 };
 
-export const ingredient2 = {
+export const ingredientSauce = {
   "_id": "643d69a5c3f7b9001cfa0943",
   "name": "Соус фирменный Space Sauce",
   "type": "sauce",
@@ -37,7 +37,7 @@ export const ingredient2 = {
   "guid": "test-ingredient-main-2",
 };
 
-export const bun = {
+export const ingredientBun = {
   "_id": "643d69a5c3f7b9001cfa093c",
   "name": "Краторная булка N-200i",
   "type": "bun",
@@ -52,4 +52,32 @@ export const bun = {
   "__v": 0,
   "id": "test-ingredient-bun-1",
   "guid": "test-ingredient-bun-1"
+};
+
+
+export const user = {
+  email: 'test@gmail.com',
+  name: 'test'
+};
+
+export const order = {
+  "_id": "68496b9dc2f30c001cb2b972",
+  "ingredients": [
+    ingredientBun._id,
+    ingredientMain._id,
+    ingredientSauce._id,
+    ingredientBun._id
+  ],
+  "status": "done",
+  "name": "Space флюоресцентный фалленианский антарианский бургер",
+  "createdAt": "2025-06-11T11:42:21.851Z",
+  "updatedAt": "2025-06-11T11:42:22.676Z",
+  "number": 80947
+}
+
+export const feed = {
+  orders: [order],
+  total: 1,
+  totalToday: 1,
+  success: true
 }
