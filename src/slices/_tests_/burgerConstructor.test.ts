@@ -1,7 +1,7 @@
 import { describe, expect, test, beforeEach } from '@jest/globals';
 import { configureStore } from '@reduxjs/toolkit';
-import burgerConstructorSliceReducer, { addIngredient, removeIngredient, moveIngredientUp, moveIngredientDown } from '../burgerConstructorSlice';
-import {initialState, ingredient1, ingredient2, bun } from './mockData';
+import burgerConstructorSliceReducer, { addIngredient, removeIngredient, moveIngredientUp, moveIngredientDown } from '../burgerConstructor/burgerConstructorSlice';
+import { ingredient1, ingredient2 } from './mockData';
 
 describe('Тесты редьюсера слайса burgerConstructor', () => {
 
@@ -13,10 +13,6 @@ describe('Тесты редьюсера слайса burgerConstructor', () => {
     store = configureStore({
         reducer: burgerConstructorSliceReducer
     });
-  });
-
-  afterEach(() => {
-    //before each
   });
 
   test('экшен добавления ингридиента', () => {

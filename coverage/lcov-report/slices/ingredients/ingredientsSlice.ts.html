@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.13% </span>
+                <span class="strong">95.31% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>44/61</span>
+                <span class='fraction'>61/64</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.13% </span>
+                <span class="strong">95.31% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/61</span>
+                <span class='fraction'>61/64</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -124,7 +124,10 @@
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -152,26 +155,29 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -195,6 +201,7 @@ interface ingredientsState {
   buns: TIngredient[];
   mains: TIngredient[];
   sauces: TIngredient[];
+  errorMessage: string;
 }
 &nbsp;
 const initialState: ingredientsState = {
@@ -202,7 +209,8 @@ const initialState: ingredientsState = {
   ingredientsList: [],
   buns: [],
   mains: [],
-  sauces: []
+  sauces: [],
+  errorMessage: '',
 };
 &nbsp;
 export const ingredientsSlice = createSlice({
@@ -213,26 +221,27 @@ export const ingredientsSlice = createSlice({
   },
   extraReducers: (builder) =&gt; {
     builder.addCase(getIngredientsAsync.pending, (state) =&gt; {
-<span class="cstat-no" title="statement not covered" >      state.isIngredientsLoading = true;</span>
+      state.isIngredientsLoading = true;
     });
-    builder.addCase(getIngredientsAsync.rejected, (state) =&gt; {
-<span class="cstat-no" title="statement not covered" >      state.isIngredientsLoading = false;</span>
+    builder.addCase(getIngredientsAsync.rejected, (state, action) =&gt; {
+      state.isIngredientsLoading = false;
+      state.errorMessage = action.error.message<span class="branch-0 cbranch-no" title="branch not covered" > || '';</span>
     });
     builder.addCase(
       getIngredientsAsync.fulfilled,
       (state, action: PayloadAction&lt;TIngredient[]&gt;) =&gt; {
-<span class="cstat-no" title="statement not covered" >        state.isIngredientsLoading = false;</span>
-<span class="cstat-no" title="statement not covered" >        state.ingredientsList = action.payload;</span>
-<span class="cstat-no" title="statement not covered" >        state.buns = action.payload.filter(</span>
-<span class="cstat-no" title="statement not covered" >          (ingredient: TIngredient) =&gt; ingredient.type === 'bun'</span>
-<span class="cstat-no" title="statement not covered" >        );</span>
-<span class="cstat-no" title="statement not covered" >        state.mains = action.payload.filter(</span>
-<span class="cstat-no" title="statement not covered" >          (ingredient: TIngredient) =&gt; ingredient.type === 'main'</span>
-<span class="cstat-no" title="statement not covered" >        );</span>
-<span class="cstat-no" title="statement not covered" >        state.sauces = action.payload.filter(</span>
-<span class="cstat-no" title="statement not covered" >          (ingredient: TIngredient) =&gt; ingredient.type === 'sauce'</span>
-<span class="cstat-no" title="statement not covered" >        );</span>
-<span class="cstat-no" title="statement not covered" >      }</span>
+        state.isIngredientsLoading = false;
+        state.ingredientsList = action.payload;
+        state.buns = action.payload.filter(
+          (ingredient: TIngredient) =&gt; ingredient.type === 'bun'
+        );
+        state.mains = action.payload.filter(
+          (ingredient: TIngredient) =&gt; ingredient.type === 'main'
+        );
+        state.sauces = action.payload.filter(
+          (ingredient: TIngredient) =&gt; ingredient.type === 'sauce'
+        );
+      }
     );
   }
 });
@@ -253,7 +262,7 @@ export default ingredientsSlice.reducer;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-06-10T11:40:55.165Z
+                at 2025-06-11T10:59:42.194Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
