@@ -54,12 +54,6 @@ export const ingredientBun = {
   "guid": "test-ingredient-bun-1"
 };
 
-
-export const user = {
-  email: 'test@gmail.com',
-  name: 'test'
-};
-
 export const order = {
   "_id": "68496b9dc2f30c001cb2b972",
   "ingredients": [
@@ -73,11 +67,33 @@ export const order = {
   "createdAt": "2025-06-11T11:42:21.851Z",
   "updatedAt": "2025-06-11T11:42:22.676Z",
   "number": 80947
-}
+};
 
 export const feed = {
   orders: [order],
   total: 1,
   totalToday: 1,
   success: true
-}
+};
+
+export const registerData = {
+  email: 'test@gmail.com',
+  name: 'testName',
+  password: 'testPassword'
+};
+
+export const user = {
+  email: registerData.email,
+  name: registerData.name
+};
+
+export const loginData = {
+  email: user.email,
+  password: registerData.password
+};
+
+export const authResponse = {
+  refreshToken: 'testRefreshToken',
+  accessToken: 'testAccessToken',
+  user: user
+};
