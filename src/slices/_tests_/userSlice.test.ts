@@ -9,7 +9,6 @@ import {
   getOrdersAsync
 } from '../user/userSlice';
 import { user, loginData, authResponse, registerData, order } from './mockData';
-import { getCookie } from 'src/utils/cookie';
 
 describe('Тесты редьюсера слайса user', () => {
 
