@@ -1,5 +1,5 @@
-import {expect, test, describe} from '@jest/globals';
-import {configureStore } from '@reduxjs/toolkit';
+import { expect, test, describe } from '@jest/globals';
+import { configureStore } from '@reduxjs/toolkit';
 import feedSliceReducer, { getFeedAsync } from '../feed/feedSlice';
 import { feed } from './mockData';
 

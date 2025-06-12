@@ -1,7 +1,7 @@
-import {expect, test, describe} from '@jest/globals';
-import {configureStore } from '@reduxjs/toolkit';
+import { expect, test, describe} from '@jest/globals';
+import { configureStore } from '@reduxjs/toolkit';
 import ingredientsSliceReducer, { getIngredientsAsync } from '../ingredients/ingredientsSlice';
-import {ingredientMain, ingredientSauce, ingredientBun } from './mockData';
+import { ingredientMain, ingredientSauce, ingredientBun } from './mockData';
 
 describe('Тесты редьюсера слайса ingredients', () => {
 
