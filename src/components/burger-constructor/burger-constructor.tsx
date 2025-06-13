@@ -36,7 +36,6 @@ export const BurgerConstructor: FC = () => {
       return;
     }
     if (!constructorItems.bun || orderRequest) return;
-    console.log('click');
     const orderIngredients: string[] = constructorItems.ingredients.map(
       (ingredient: TConstructorIngredient) => ingredient._id
     );

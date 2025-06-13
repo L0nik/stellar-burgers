@@ -8,6 +8,7 @@ interface ingredientsState {
   buns: TIngredient[];
   mains: TIngredient[];
   sauces: TIngredient[];
+  errorMessage: string;
 }
 
 const initialState: ingredientsState = {
@@ -15,7 +16,8 @@ const initialState: ingredientsState = {
   ingredientsList: [],
   buns: [],
   mains: [],
-  sauces: []
+  sauces: [],
+  errorMessage: ''
 };
 
 export const ingredientsSlice = createSlice({
@@ -28,8 +30,9 @@ export const ingredientsSlice = createSlice({
     builder.addCase(getIngredientsAsync.pending, (state) => {
       state.isIngredientsLoading = true;
     });
-    builder.addCase(getIngredientsAsync.rejected, (state) => {
+    builder.addCase(getIngredientsAsync.rejected, (state, action) => {
       state.isIngredientsLoading = false;
+      state.errorMessage = action.error.message || '';
     });
     builder.addCase(
       getIngredientsAsync.fulfilled,
